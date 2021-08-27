@@ -1,0 +1,32 @@
+### Project Data Lake
+
+##  1. Discuss the purpose of this database in context of the startup, Sparkify, and their analytical goals.
+The purpose of this project is to build an ETL pipeline that will be able to:
+
+1. extract song and log data from an S3 bucket, 
+2. process the data using Spark and 
+3. load the data back into s3 as a set of dimensional tables in spark parquet files. 
+
+These dimansional tables can be used afterwords from analysts to continue finding insights and optimize e.g. the products based on data analysis.
+
+# Schema of the Tables:
+The TAbles follows the star schema which is suitable for OLAP (online Analytical Processing)
+
+The creaded tables are include
+* one fact table = songplays
+* and four dimensional tables =  namely users, songs, artists and time. 
+
+# ETL Pipline
+Before the extracted data can be stored in the fact and dimensional tabels, they need to be transformed e.g. the timestamp has to be converted to timestamp where we can extract year, month, day, hour values which  are needed for the relevant target time and songplays table columns.
+Also we will need to ensure that we drop the duplicats. 
+
+# Used Datasets and Project files
+
+* Used Datasets: Datasets will be retrieved from the s3 bucket, availible in JSON Format (log_data, song_data).
+** song_data : contains a subset of the the Million Song Dataset. 
+** log_data : contains generated log files based on the songs in song_data.
+
+* Used Project files
+** etl.py: execute to retrieves the song and log data from the s3 bucket, transforms the data into fact and dimensional tables and finally loads the table data back into s3 as parquet files.
+
+** dl.cfg: Contain the AWS keys
